@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 700" width="600" height="700" role="img" aria-label="Santosh Kumar (placeholder image)">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6c77a"/><stop offset=".6" stop-color="#f28c28"/><stop offset="1" stop-color="#b8470f"/></linearGradient>
+<linearGradient id="r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a3a1c"/><stop offset="1" stop-color="#2a0b12"/></linearGradient></defs>
+<rect width="600" height="700" fill="url(#s)"/>
+<circle cx="468" cy="182" r="54" fill="#fff3d6" opacity=".9"/>
+
+<circle cx="300" cy="266" r="102.00000000000001" fill="#4a1119" opacity=".8"/><path d="M108 700C108 434 491.99999999999994 434 491.99999999999994 700Z" fill="#4a1119" opacity=".8"/>
+<g font-family="Georgia, serif" text-anchor="middle" fill="#fdf6e9">
+<text x="300" y="84" font-size="45" font-weight="700">Santosh Kumar</text>
+<text x="300" y="124.5" font-size="23" font-family="Arial, sans-serif" opacity=".9">Placeholder portrait</text>
+</g></svg>
