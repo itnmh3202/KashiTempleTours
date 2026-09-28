@@ -55,7 +55,7 @@ All photos are resized to at most 1600px wide, compressed, and provided as both 
 | 3. Vishalakshi | `vishalakshi` | Wikimedia Commons, CC BY-SA 4.0 |
 | 4. Varahi Devi | `varahi-devi` | Owner-supplied. Low-res (540px); confirm it's the Varanasi shrine; license to confirm |
 | 5. Ganga Aarti | `ganga-aarti` | Owner-supplied. Low-res (631px); license to confirm |
-| Guide | `guide.svg` | **Needs real photo** of Santosh |
+| Guide | `santosh-kumar` | Owner-supplied portrait of Santosh |
 
 The best fix is photos taken on your own tours: you own them outright, and they show exactly what guests will see. To replace one, save it under the same name (e.g. `kal-bhairav.jpg`), update the `src` in `index.html`, and create a WebP copy with [Squoosh](https://squoosh.app).
 

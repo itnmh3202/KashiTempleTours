@@ -285,6 +285,7 @@ p { margin: 0 0 1em; }
 
 /* ---------- About ---------- */
 .about { display: grid; gap: 2rem; align-items: center; }
+.about picture { display: block; }
 .about-photo {
   width: 100%; max-width: 420px; margin: 0 auto; border-radius: var(--radius);
   box-shadow: 0 0 0 6px var(--cream), 0 0 0 8px var(--gold), var(--shadow);

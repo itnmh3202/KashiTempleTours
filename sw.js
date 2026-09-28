@@ -1,6 +1,6 @@
 /* Service worker: lets the site install as an app and open offline.
    Bump CACHE whenever you change files listed in ASSETS. */
-const CACHE = "kashi-v7";
+const CACHE = "kashi-v8";
 const ASSETS = [
   "./",
   "./index.html",

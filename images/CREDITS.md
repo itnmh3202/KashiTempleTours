@@ -16,8 +16,9 @@ These images were resized, cropped (`og-image.jpg`) and re-encoded as JPG and We
 | `kashi-vishwanath.jpg` / `.webp` | Shri Kashi Vishwanath Temple | Supplied by owner. Source and license to be confirmed. |
 | `kal-bhairav.jpg` / `.webp` | Kal Bhairav Temple | Supplied by owner. Source and license to be confirmed. |
 | `varahi-devi.jpg` / `.webp` | Sri Varahi Devi Temple | Supplied by owner. Source and license to be confirmed. |
+| `santosh-kumar.jpg` / `.webp` | Santosh Kumar (guide portrait) | Supplied by owner. |
 | `ganga-aarti.jpg` / `.webp` | Ganga Aarti at Dashashwamedh Ghat | Supplied by owner. Source and license to be confirmed. |
 
 ## Illustrations
 
-`guide.svg`, `favicon.svg` and the `icon-*.png` app icons are original artwork made for this site.
+`favicon.svg` and the `icon-*.png` app icons are original artwork made for this site.
