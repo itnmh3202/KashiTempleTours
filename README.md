@@ -18,6 +18,15 @@ privacy.html            Privacy policy (needed for Google Play)
 store/                  Google Play listing text and policy answers
 ```
 
+## Secrets
+
+This repo is public **and** served as the website, so any committed file can be downloaded by anyone.
+
+- Put passwords and keys in `.env`, which is git-ignored. Copy `.env.example` to create it.
+- Local Node scripts can read `.env` with [dotenv](https://www.npmjs.com/package/dotenv) (`npm install` first).
+- The website itself runs in visitors' browsers and **cannot** use `.env`. Never put a secret in `index.html` or `script.js`.
+- Keep the Google Play signing keystore (`*.keystore`, `*.jks`) out of git and backed up somewhere safe. `.gitignore` already blocks it.
+
 ## 1. Fill in your details
 
 Edit the block at the top of `script.js`:

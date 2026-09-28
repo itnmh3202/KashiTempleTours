@@ -1,0 +1,20 @@
+# Secrets: never commit. This repo is public AND served as the website,
+# so anything committed can be downloaded at kashitempletours.com/<file>.
+.env
+.env.*
+!.env.example
+
+# Private business documents (would otherwise be public on the website)
+BUSINESSPLAN.md
+
+# Android / Google Play signing keys (PWABuilder / Bubblewrap output)
+*.keystore
+*.jks
+signing-key-info.txt
+*service-account*.json
+
+# Node
+node_modules/
+
+# Local tooling
+.claude/settings.local.json

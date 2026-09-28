@@ -1,0 +1,8 @@
+{
+  "name": "kashi-temple-tours",
+  "private": true,
+  "description": "Kashi Temple Tours website. Node is only used for local tooling scripts; the site itself has no build step.",
+  "devDependencies": {
+    "dotenv": "^18.0.4"
+  }
+}
