@@ -123,10 +123,12 @@
         <source srcset="images/hero-ghats.webp" type="image/webp">
         <img class="hero-img" src="images/hero-ghats.jpg" alt="The ghats of Varanasi seen from the Ganga, with temples and boats along the riverbank" width="1600" height="713" fetchpriority="high">
       </picture>
+      <!-- Background video: added by script.js unless the visitor prefers reduced motion or is saving data -->
+      <div class="hero-video-slot" data-video="images/hero-aarti.mp4?v=2" data-poster="images/hero-aarti-poster.jpg?v=2"></div>
       <div class="hero-overlay"></div>
       <div class="container hero-content">
         <svg class="hero-diya" viewBox="0 0 64 48" width="56" height="42" aria-hidden="true">
-          <path d="M32 2c5 7 8 12 8 17a8 8 0 0 1-16 0c0-5 3-10 8-17z" fill="url(#flame)"/>
+          <path class="diya-flame" d="M32 2c5 7 8 12 8 17a8 8 0 0 1-16 0c0-5 3-10 8-17z" fill="url(#flame)"/>
           <path d="M6 30h52c-2 9-12 15-26 15S8 39 6 30z" fill="currentColor"/>
           <rect x="22" y="26" width="20" height="4" rx="2" fill="currentColor"/>
           <defs><linearGradient id="flame" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#f28c28"/><stop offset="1" stop-color="#fff1c1"/></linearGradient></defs>

@@ -1,6 +1,6 @@
 /* Service worker: lets the site install as an app and open offline.
    Bump CACHE whenever you change files listed in ASSETS. */
-const CACHE = "kashi-v8";
+const CACHE = "kashi-v10";
 const ASSETS = [
   "./",
   "./index.html",
@@ -28,6 +28,8 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   if (request.method !== "GET" || new URL(request.url).origin !== location.origin) return;
+  // Videos stream in byte ranges, which the cache can't store; let the browser handle them
+  if (request.headers.has("range") || request.destination === "video") return;
 
   // Pages: network first so updates show immediately; fall back to cache offline
   if (request.mode === "navigate") {

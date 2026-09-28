@@ -110,6 +110,140 @@ faqItems.forEach((item) => {
   });
 });
 
+/* --------------------------------------------------------------------------
+   Motion and video. Skipped entirely for visitors who have "reduce motion"
+   turned on, so they get the plain, fully visible page.
+   -------------------------------------------------------------------------- */
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const connection = navigator.connection || {};
+const savingData = connection.saveData === true || /(^|-)2g$/.test(connection.effectiveType || "");
+
+if (!prefersReducedMotion) {
+  document.documentElement.classList.add("motion");
+}
+
+// Hero background video (Ganga Aarti loop), with a pause button
+(function heroVideo() {
+  const slot = document.querySelector(".hero-video-slot");
+  if (!slot || prefersReducedMotion || savingData) return;
+
+  const video = document.createElement("video");
+  video.className = "hero-video";
+  video.muted = true;               // must be muted to autoplay on phones
+  video.loop = true;
+  video.playsInline = true;
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
+  video.setAttribute("aria-hidden", "true");
+  video.preload = "auto";
+  video.poster = slot.dataset.poster;
+  video.src = slot.dataset.video;
+  slot.replaceWith(video);
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "hero-video-toggle";
+  const pauseIcon = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+  const playIcon = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>';
+  let userPaused = false;
+  function setButton(paused) {
+    button.innerHTML = paused ? playIcon : pauseIcon;
+    button.setAttribute("aria-label", paused ? "Play background video" : "Pause background video");
+  }
+  setButton(false);
+  button.addEventListener("click", () => {
+    userPaused = !video.paused;
+    if (userPaused) video.pause(); else video.play().catch(() => {});
+    setButton(userPaused);
+  });
+  document.querySelector(".hero").appendChild(button);
+
+  video.addEventListener("playing", () => video.classList.add("is-playing"), { once: true });
+  video.play().catch(() => { button.hidden = true; }); // autoplay blocked: keep the photo
+
+  // Pause while scrolled away from the hero, to save battery
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => {
+      if (userPaused) return;
+      if (entry.isIntersecting) video.play().catch(() => {});
+      else video.pause();
+    }).observe(video);
+  }
+})();
+
+// Scroll reveals, timeline progress and counting numbers
+(function scrollMotion() {
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) return;
+
+  // Things that fade up into view; siblings are staggered slightly
+  const groups = [
+    "#tour .narrow > *", ".facts li",
+    "#itinerary .narrow > *", ".stop",
+    ".about-photo", ".about-text > *",
+    "#reviews .narrow > *", ".review", "#reviews .btn-row",
+    "#faq .narrow > p, #faq .narrow > h2", ".faq details",
+    ".contact-info > *", ".map",
+  ];
+  groups.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      el.classList.add("reveal");
+      el.style.setProperty("--delay", `${Math.min(i, 5) * 0.08}s`);
+    });
+  });
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      revealObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -10% 0px" });
+  document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+  // Timeline line fills from the first stop to the last as you scroll
+  const timeline = document.querySelector(".timeline");
+  if (timeline) {
+    let ticking = false;
+    const update = () => {
+      const rect = timeline.getBoundingClientRect();
+      const reached = window.innerHeight * 0.6 - rect.top;
+      const progress = Math.max(0, Math.min(1, reached / rect.height));
+      timeline.style.setProperty("--progress", progress.toFixed(3));
+      ticking = false;
+    };
+    window.addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+
+  // Numbers count up when they come into view ("20+ years", "5 sacred stops", "~4.5 hours")
+  const counters = [...document.querySelectorAll(".facts strong, .about-stats dd")]
+    .filter((el) => /\d/.test(el.textContent) && el.children.length === 0);
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      countObserver.unobserve(entry.target);
+      const el = entry.target;
+      const original = el.textContent;
+      const match = original.match(/(\d+(?:\.\d+)?)/);
+      const target = parseFloat(match[1]);
+      const decimals = (match[1].split(".")[1] || "").length;
+      const start = performance.now();
+      const duration = 1200;
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = original.replace(match[1], (target * eased).toFixed(decimals));
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = original;
+      };
+      requestAnimationFrame(step);
+    });
+  }, { threshold: 0.6 });
+  counters.forEach((el) => countObserver.observe(el));
+})();
+
 // iPhone/iPad: suggest "Add to Home Screen" (iOS has no install prompt of its own)
 (function iosInstallHint() {
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
